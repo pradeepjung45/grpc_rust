@@ -1,0 +1,12 @@
+[package]
+name = "server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+terminal-proto = { path = "../terminal-proto" }
+tonic = "0.12"
+prost = "0.13"
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread", "process", "time"] }
+futures = "0.3"
+tokio-stream = "0.1"

@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "terminal-proto",
+    "server",
+    "client"
+]
+resolver = "2"

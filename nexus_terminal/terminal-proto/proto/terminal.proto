@@ -1,0 +1,32 @@
+syntax = "proto3";
+package terminal;
+
+service RemoteShell {
+  // Level 1: Basic Unary
+  rpc Execute (CommandRequest) returns (CommandResponse);
+
+  // Level 2: Server Streaming
+  rpc WatchStream (StreamRequest) returns (stream StreamResponse);
+
+  // Level 3: Bi-directional Streaming
+  // Both sides send a stream at the same time.
+  // Client sends commands, server streams back output lines.
+  rpc RunLive (stream LiveInput) returns (stream LiveOutput);
+}
+
+// Level 1 messages
+message CommandRequest { string command = 1; }
+message CommandResponse { string output = 1; int32 exit_code = 2; }
+
+// Level 2 messages
+message StreamRequest { string target = 1; }
+message StreamResponse { string update = 1; int32 event_id = 2; }
+
+// Level 3 messages
+message LiveInput {
+  string input_line = 1;  // A command typed by the client
+}
+
+message LiveOutput {
+  string output_line = 1; // A line of output from the server
+}
